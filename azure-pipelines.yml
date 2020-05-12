@@ -104,25 +104,26 @@ jobs:
   pool:
     vmImage: 'windows-2019'
   steps:
-  - task: AzureResourceGroupDeployment@2
-    displayName: 'Clean up A2 Resource Group'
-    continueOnError: true
-    inputs:
-      azureSubscription: '$(ARM_SUBSCRIPTION_NAME) ($(ARM_SUBSCRIPTION_ID))'
+   - task: AzureResourceManagerTemplateDeployment@3
+     inputs:
+      deploymentScope: 'Resource Group'
+      azureResourceManagerConnection: 'AzureJunk'
+      subscriptionId: '1dafd80e-7859-41e6-9ce6-3bf0ac90feac'
       action: 'DeleteRG'
-      resourceGroupName: '$(ARM_RESOURCE_GROUP_NAME)'
-  - task: AzureResourceGroupDeployment@2
-    displayName: 'Deploy A2 ARM Template'
+      resourceGroupName: 'AzureDevOps'
+  - task: AzureResourceManagerTemplateDeployment@3
     inputs:
-      azureSubscription: '$(ARM_SUBSCRIPTION_NAME) ($(ARM_SUBSCRIPTION_ID))'
+      deploymentScope: 'Resource Group'
+      azureResourceManagerConnection: 'AzureJunk'
+      subscriptionId: '1dafd80e-7859-41e6-9ce6-3bf0ac90feac'
       action: 'Create Or Update Resource Group'
-      resourceGroupName: '$(ARM_RESOURCE_GROUP_NAME)'
-      location: 'East US'
+      resourceGroupName: 'AzureDevOps'
+      location: 'North Central US'
       templateLocation: 'URL of the file'
       csmFileLink: 'https://chefmanagedapp.blob.core.windows.net/files/mainTemplate.json'
       csmParametersFileLink: 'https://raw.githubusercontent.com/chef-partners/camsa-templates/master/samples/parameters.json'
       overrideParameters: '-prefix $(ARM_PREFIX) -virtualNetworkName $(ARM_PREFIX)network -customerResourceGroupName $(ARM_RESOURCE_GROUP_NAME) -subnetName $(ARM_PREFIX)subnet -chefUsername admin -chefUserFullname Admin -chefUserEmailaddress admin@example.com -chefUserPassword $(ARM_CHEF_PASSWORD) -chefOrg effortless -chefOrgDescription Effortless -sshSourceAddresses ["34.206.89.3/32"] -sshPublicKeys ["$(ARM_SSH_PUBLIC_KEY)"]'
-      deploymentMode: 'Incremental' 
+      deploymentMode: 'Incremental'
   - task: ARM Outputs@5
     displayName: 'Process ARM Deplopyment Outputs'
     inputs:
