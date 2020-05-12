@@ -188,26 +188,29 @@ jobs:
       keepToken: false
       tokenPrefix: '__'
       tokenSuffix: '__'    
-  - task: TerraformCLI@0
-    displayName: 'Initialise Terraform'
+  - task: TerraformTaskV1@0
     inputs:
+      provider: 'azurerm'
       command: 'init'
       workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
-  - task: TerraformCLI@0
-    displayName: 'Clean up old Terraform Infrastructure'
-    inputs:    
+      backendServiceArm: 'AzureJunk'
+      backendAzureRmResourceGroupName: 'AzureDevOps'
+      backendAzureRmStorageAccountName: 'bwilliamazdevops'
+      backendAzureRmContainerName: 'azuredevops'
+      backendAzureRmKey: 'terraform.tfstate'
+  - task: TerraformTaskV1@0
+    inputs:
+      provider: 'azurerm'
       command: 'destroy'
       workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
-      environmentServiceName: '$(ARM_SUBSCRIPTION_NAME) ($(ARM_SUBSCRIPTION_ID))'    
-  - task: TerraformCLI@0
-    displayName: 'Terraform Plan' 
+      environmentServiceNameAzureRM: 'AzureJunk'
+  - task: TerraformTaskV1@0
     inputs:
+      provider: 'azurerm'
       command: 'plan'
-      workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
-      environmentServiceName: '$(ARM_SUBSCRIPTION_NAME) ($(ARM_SUBSCRIPTION_ID))'    
-  - task: TerraformCLI@0
-    displayName: 'Terraform Apply' 
+      environmentServiceNameAzureRM: 'AzureJunk'
+  - task: TerraformTaskV1@0
     inputs:
+      provider: 'azurerm'
       command: 'apply'
-      workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
-      environmentServiceName: '$(ARM_SUBSCRIPTION_NAME) ($(ARM_SUBSCRIPTION_ID))'  
+      environmentServiceNameAzureRM: 'AzureJunk'
