@@ -104,8 +104,8 @@ jobs:
   pool:
     vmImage: 'windows-2019'
   steps:
-   - task: AzureResourceManagerTemplateDeployment@3
-     inputs:
+  - task: AzureResourceManagerTemplateDeployment@3
+    inputs:
       deploymentScope: 'Resource Group'
       azureResourceManagerConnection: 'AzureJunk'
       subscriptionId: '1dafd80e-7859-41e6-9ce6-3bf0ac90feac'
@@ -149,7 +149,7 @@ jobs:
       AUTOMATE_FQDN: $(a2_set_vars.automate_fqdn)
       AUTOMATE_USERNAME: $(a2_set_vars.automate_credentials_username)
       AUTOMATE_PASSWORD: $(a2_set_vars.automate_credentials_password)
-      AUTOMATE_TOKEN: $(a2_set_vars.chef_automate_token)      
+      AUTOMATE_TOKEN: $(a2_set_vars.chef_automate_token) 
 - job: Provision_Infrastructure
   dependsOn: 
     - Windows_Image_Build
