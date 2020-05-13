@@ -125,13 +125,12 @@ jobs:
       overrideParameters: '-prefix $(ARM_PREFIX) -virtualNetworkName $(ARM_PREFIX)network -customerResourceGroupName $(ARM_RESOURCE_GROUP_NAME) -subnetName $(ARM_PREFIX)subnet -chefUsername admin -chefUserFullname Admin -chefUserEmailaddress admin@example.com -chefUserPassword $(ARM_CHEF_PASSWORD) -chefOrg effortless -chefOrgDescription Effortless -sshSourceAddresses ["34.206.89.3/32"] -sshPublicKeys ["$(ARM_SSH_PUBLIC_KEY)"]'
       deploymentMode: 'Incremental'
   - task: ARM Outputs@5
-    displayName: 'Process ARM Deplopyment Outputs'
     inputs:
       ConnectedServiceNameSelector: 'ConnectedServiceNameARM'
-      ConnectedServiceNameARM: '$(ARM_SUBSCRIPTION_NAME) ($(ARM_SUBSCRIPTION_ID))'
-      resourceGroupName: '$(ARM_RESOURCE_GROUP_NAME)'
-      prefix: 'camsa'
-      whenLastDeploymentIsFailed: 'fail'   
+      ConnectedServiceNameARM: 'AzureJunk'
+      resourceGroupName: 'AzureDevOps'
+      prefix: 'bwilla'
+      whenLastDeploymentIsFailed: 'fail'
   - powershell: |
         $params = @("automate_fqdn", "automate_credentials_username", "automate_credentials_password", "chef_automate_token")     
         foreach ($param in $params) {
@@ -215,3 +214,12 @@ jobs:
       provider: 'azurerm'
       command: 'apply'
       environmentServiceNameAzureRM: 'AzureJunk'
+
+
+- task: ARM Outputs@5
+  inputs:
+    ConnectedServiceNameSelector: 'ConnectedServiceNameARM'
+    ConnectedServiceNameARM: 'AzureJunk'
+    resourceGroupName: 'AzureDevOps'
+    prefix: 'bwilla'
+    whenLastDeploymentIsFailed: 'fail'
