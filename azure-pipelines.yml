@@ -122,7 +122,7 @@ jobs:
       ConnectedServiceNameSelector: 'ConnectedServiceNameARM'
       ConnectedServiceNameARM: 'AzureJunk'
       resourceGroupName: 'AzureDevOps'
-      prefix: 'bwilla'
+      prefix: 'camsa'
       whenLastDeploymentIsFailed: 'fail'
   - powershell: |
         $params = @("automate_fqdn", "automate_credentials_username", "automate_credentials_password", "chef_automate_token")     
