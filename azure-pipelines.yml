@@ -111,6 +111,7 @@ jobs:
       subscriptionId: '1dafd80e-7859-41e6-9ce6-3bf0ac90feac'
       action: 'DeleteRG'
       resourceGroupName: 'AzureDevOps'
+      location: 'North Central US'
   - task: AzureResourceManagerTemplateDeployment@3
     inputs:
       deploymentScope: 'Resource Group'
