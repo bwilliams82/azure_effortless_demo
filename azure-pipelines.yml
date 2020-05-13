@@ -214,12 +214,3 @@ jobs:
       provider: 'azurerm'
       command: 'apply'
       environmentServiceNameAzureRM: 'AzureJunk'
-
-
-- task: ARM Outputs@5
-  inputs:
-    ConnectedServiceNameSelector: 'ConnectedServiceNameARM'
-    ConnectedServiceNameARM: 'AzureJunk'
-    resourceGroupName: 'AzureDevOps'
-    prefix: 'bwilla'
-    whenLastDeploymentIsFailed: 'fail'
