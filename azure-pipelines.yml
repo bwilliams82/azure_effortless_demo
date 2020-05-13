@@ -49,12 +49,12 @@ jobs:
          $tools="$(C:\\ProgramData\\habitat\\hab pkg path jonlives/packer)/bin"
          Write-Host $tools
          Write-Host "##vso[task.setvariable variable=PATH;]${env:PATH};${tools}";      
-  - task: PackerBuild@1
-    displayName: 'Packer Build'
+  - task: Packer@1
     inputs:
-      templateType: 'custom'
-      customTemplateLocation: 'packer/windows-2016.json'
-      imageUri: 'effortless-windows-2016'     
+      connectedServiceType: 'azure'
+      azureSubscription: 'AzureJunk'
+      templatePath: 'packer/windows-2016.json'
+      command: 'build'
 - job: Linux_Image_Build
   dependsOn: Provision_A2
   variables:
@@ -94,12 +94,12 @@ jobs:
         curl https://raw.githubusercontent.com/habitat-sh/habitat/master/components/hab/install.sh | sudo bash
         hab license accept
         sudo hab pkg install core/packer
-  - task: PackerBuild@1
-    displayName: 'Packer Build'
+  - task: Packer@1
     inputs:
-      templateType: 'custom'
-      customTemplateLocation: 'packer/rhel-7.json'
-      imageUri: 'effortless-rhel-7'   
+      connectedServiceType: 'azure'
+      azureSubscription: 'AzureJunk'
+      templatePath: 'packer/rhel-7.json'
+      command: 'build'
 - job: Provision_A2
   pool:
     vmImage: 'windows-2019'
